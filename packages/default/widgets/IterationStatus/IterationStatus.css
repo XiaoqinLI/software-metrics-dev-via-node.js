@@ -1,0 +1,11 @@
+.item-container {
+    font-size: 40px;
+}
+
+table {
+    font-size: 30px;
+}
+
+tbody tr:nth-child(even) {
+  background: #867970;
+}

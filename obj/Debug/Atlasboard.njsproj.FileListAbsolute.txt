@@ -1,0 +1,2 @@
+C:\Users\xiaoqin.li\AppData\Roaming\npm\from_casey\obj\Debug\bin\Microsoft.NodejsTools.WebRole.dll
+C:\Users\xiaoqin.li\AppData\Roaming\npm\from_casey\obj\Debug\Atlasboard.njsprojResolveAssemblyReference.cache

@@ -1,0 +1,32 @@
+*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+@font-face{font-family:'Roboto Condensed';font-style:normal;font-weight:400;src:local('Roboto Condensed Regular'),local('RobotoCondensed-Regular'),url("../../fonts/roboto-condensed.woff") format('woff')}
+body{background:#181818;font-family:'Roboto Condensed';overflow:hidden}
+.uppercase{text-transform:uppercase}
+.icon-message{display:table;height:100%;width:100%;}
+.icon-message .container{display:table-cell;vertical-align:middle;}
+.icon-message .container img{margin:0 auto;display:block;width:60px}
+.error.icon-message > .container > img{opacity:.4;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=40);filter:alpha(opacity=40)}
+#disconnected{display:none;background:#f00;-webkit-border-radius:5px;border-radius:5px;color:#fff;padding:10px;font-size:20px;position:absolute;width:40%;margin:auto;left:5%;top:5%;z-index:1000}
+#main-container{width:1920px;height:1080px;padding:15px;-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-o-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0;margin:0 auto;}
+#main-container.disconnected{opacity:.3;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=30);filter:alpha(opacity=30)}
+#main-container #dashboard-list{width:100%;}
+#main-container #dashboard-list ul{list-style:none;padding:0}
+#main-container #dashboard-list li{background:#0f0f0f;color:#fff;padding:15px;margin:15px;-webkit-border-radius:3.75px;border-radius:3.75px;-webkit-box-shadow:0 0 5px #111;box-shadow:0 0 5px #111;overflow:hidden;float:left;width:23%;font-size:2em;}
+#main-container #dashboard-list li a{text-decoration:none;color:#fff;text-transform:uppercase}
+#main-container #widgets-container{clear:both;}
+#main-container #widgets-container > ul{list-style:none;padding:0;}
+#main-container #widgets-container > ul > li{background:#0f0f0f;color:#fff;padding:15px;-webkit-border-radius:3.75px;border-radius:3.75px;-webkit-box-shadow:0 0 5px #111;box-shadow:0 0 5px #111;overflow:hidden;}
+#main-container #widgets-container > ul > li.editing{z-index:32767;-webkit-box-shadow:0 0 15px #333;box-shadow:0 0 15px #333}
+#main-container #widgets-container > ul > li:hover .edit{display:block}
+#main-container #widgets-container > ul > li .content.offline,#main-container #widgets-container > ul > li .content.onerror{opacity:.2;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=20);filter:alpha(opacity=20)}
+#main-container #widgets-container > ul > li .edit{display:none;width:20px;height:20px;position:absolute;top:15px;right:15px;border:none;text-indent:-9999px;background:transparent no-repeat url(dataimage/pngbase64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGSSURBVCjPVVFNSwJhEF78Ad79Cf6PvXQRsotUlzKICosuRYmR2RJR0KE6lBFFZVEbpFBSqKu2rum6llFS9HHI4iUhT153n6ZtIWMOM+/MM88z7wwH7s9Ub16SJcnbmrNcxVm2q7Z8/QPvEOtntpj92NkCqITLepEpjix7xQtiLOoQ2b6+E7YAN/5nfOEJ2WbKqOIOJ4bYVMEQx4LfBBQDsvFMhUcCVU1/CxVXmDBGA5ZETrhDCQVcYAPbyEJBhvrnBVPiSpNr6cYDNCQwo4zzU/ySckkgDYuNuVpI42T9k4gLKGMPs/xPzzovQiY2hQYe0jlJfyNNhTqiWDYBq/wBMcSRpnyPzu1oS7WtxjVBSthU1vgVksiQ3Dn6Gp5ah2YOKQo5GiuHPA6xT1EKpxQNCNYejgIR457KKio0S56YckjSa9jo//3mrj+BV0QQagqGTOo+Y7gZIf1puP3WHoLhEb2PjTlCTCWGXtbp8DCX3hZuOdaIc9A+aQvWk4ihq95p67a7nP+u+Ws+r0dql9z/zv0NCYhdCPKZ7oYAAAAASUVORK5CYII=)}
+#main-container #widgets-container.loading{color:#333}
+#main-container #widgets-container h2{font-size:30px;margin-top:0;margin-left:-15px;margin-right:-15px;margin-bottom:15px;padding:0 15px 0 15px;text-transform:uppercase;color:#454545;line-height:90%;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;white-space:nowrap}
+big{color:#fff;font-size:60px;font-weight:bold}
+.error{colorredfont-size:30px}
+.error-display{display:none;padding-left:20px;padding-bottom:3px}
+.error-display.show{display:inline !important}
+.widget-title span.alert{text-transform:lowercase;font-size:80%;opacity:.8;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=80);filter:alpha(opacity=80)}
+.widget-title span.alert_low{color:#ff0}
+.widget-container{width:100%}
+.widget-title span.alert_high{color:#f00}

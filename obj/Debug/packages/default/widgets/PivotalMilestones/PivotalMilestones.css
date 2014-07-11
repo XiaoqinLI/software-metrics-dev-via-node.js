@@ -1,0 +1,11 @@
+.item-container {
+    font-size: 40px;
+}
+
+table {
+    font-size: 30px;
+}
+
+tbody tr:nth-child(odd) {
+  background: #867970;
+}

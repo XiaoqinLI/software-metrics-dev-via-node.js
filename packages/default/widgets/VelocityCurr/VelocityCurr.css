@@ -1,0 +1,12 @@
+#main-container #widgets-container h2{
+	font-size: 24px;
+}
+
+.item-container {
+    font-size: 28px;
+}
+
+.currentVelocity{
+	font-size: 48px;
+	color: orange;
+}

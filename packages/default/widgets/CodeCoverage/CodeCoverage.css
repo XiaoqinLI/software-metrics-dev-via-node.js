@@ -1,0 +1,45 @@
+
+.section {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+
+.section .left {
+	display: table-cell;
+	width: 300px;
+	vertical-align: top;
+}
+
+.section .right {
+	display: table-cell;
+	vertical-align: top;
+	text-align: right;
+}
+
+.section .right img {
+	padding-bottom: 20px;
+}
+
+.coveragePercent {
+	font-size: 50px;
+}
+
+.coverageHeader {
+	font-size: 25px;
+}
+
+.coverageNeutral {
+	font-size: 50px;
+    color:#808080;
+}
+
+.coverageDown {
+	font-size: 50px;
+    color:#d94938;
+}
+
+.coverageUp {
+	font-size: 50px;
+    color:#20881b;
+}

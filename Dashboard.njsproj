@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{137c665b-0b10-4441-9f9d-aae5cd761d5b}</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>packages\default\jobs\PivotalMilestonesJob\PivotalMilestonesJob.js</StartupFile>
+    <WorkingDirectory>C:\Users\xiaoqin.li\AppData\Roaming\npm\from_casey</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NodeExeArguments>C:\Users\xiaoqin.li\AppData\Roaming\npm\node_modules\atlasboard\lib\cli\cli.js</NodeExeArguments>
+    <ScriptArguments>start</ScriptArguments>
+    <StartWebBrowser>True</StartWebBrowser>
+    <Name>Dashboard</Name>
+    <NodeExePath>C:\Program Files\nodejs\node.exe</NodeExePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="config\atlasboard.json" />
+    <Content Include="config\dashboard_common.json" />
+    <Content Include="assets\images\green-down.png" />
+    <Content Include="assets\images\green-up.png" />
+    <Content Include="assets\images\red-down.png" />
+    <Content Include="assets\images\red-up.png" />
+    <Compile Include="assets\javascripts\date.format.js" />
+    <Compile Include="assets\javascripts\jquery.peity.js" />
+    <Compile Include="assets\javascripts\jquery.spin.js" />
+    <Compile Include="assets\javascripts\md5.js" />
+    <Compile Include="assets\javascripts\pretty.js" />
+    <Compile Include="assets\javascripts\spin.js" />
+    <Content Include="assets\compiled\stylesheets\application.css" />
+    <Content Include="packages\default\README.md" />
+    <Compile Include="packages\default\jobs\PivotalMilestonesJob\PivotalMilestonesJob.js" />
+    <Content Include="packages\default\widgets\PivotalMilestones\PivotalMilestones.html" />
+    <Content Include="packages\default\widgets\PivotalMilestones\PivotalMilestones.css" />
+    <Compile Include="packages\default\widgets\PivotalMilestones\PivotalMilestones.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets" />
+    <Folder Include="assets\compiled" />
+    <Folder Include="assets\compiled\stylesheets" />
+    <Folder Include="assets\images" />
+    <Folder Include="assets\javascripts" />
+    <Folder Include="config" />
+    <Folder Include="packages" />
+    <Folder Include="packages\default" />
+    <Folder Include="packages\default\jobs" />
+    <Folder Include="packages\default\jobs\PivotalMilestonesJob" />
+    <Folder Include="packages\default\widgets" />
+    <Folder Include="packages\default\widgets\PivotalMilestones" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
