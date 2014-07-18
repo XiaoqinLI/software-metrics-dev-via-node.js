@@ -210,5 +210,5 @@ module.exports = function (config, dependencies, job_callback) {
         }
 
 );
-    }, 70000);
+    }, 50000);
 };

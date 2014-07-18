@@ -13,7 +13,7 @@ widget = {
                 $('.content', el).append(
                     "<div class='item-container'>" +
                         "<div class='stat'>" + stat.statsType + "</div>" +
-                        "<div class='counter'>" + stat.value.point + "/" + stat.value.story + "</div>" +
+                        "<div class='counter'>" + stat.value + "</div>" +
                         "</div>"
 );
             })

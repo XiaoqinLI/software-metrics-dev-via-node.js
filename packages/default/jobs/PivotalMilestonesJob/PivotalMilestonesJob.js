@@ -21,7 +21,16 @@ module.exports = function (config, dependencies, job_callback) {
         } else {
             var result = JSON.parse(body);
 
+            result.sort(storyCompare);
             job_callback(null, { title: config.widgetTitle, stories: result });
         }
     });
+};
+
+function storyCompare(a, b) {
+    if (a.deadline < b.deadline)
+        return -1;
+    if (a.deadline > b.deadline)
+        return 1;
+    return 0;
 };

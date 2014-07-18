@@ -1,0 +1,22 @@
+#main-container #widgets-container h2{
+	font-size: 24px;
+}
+
+.item-container-add {
+    font-size: 28px;
+    width: 50%;
+    display: inline-block;
+    float:left;
+}
+
+.item-container-delete {
+    font-size: 28px;
+    width: 50%;
+    display: inline-block;
+    float:right;
+}
+
+.current{
+	font-size: 48px;
+	color: orange;
+}

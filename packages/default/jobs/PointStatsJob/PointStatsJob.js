@@ -169,7 +169,11 @@ module.exports = function (config, dependencies, job_callback) {
                
             });//end of stories for loop
             
-            rej_story_ratio = rejected_story_count / finished_story_count;
+            if (finished_story_count != 0) {
+                rej_story_ratio = ((rejected_story_count / finished_story_count) * 100).toFixed(1);
+            }else {
+                rej_story_ratio = 0;
+            }
             if (finished_story_pt != 0) {
                 rej_pt_ratio = ((rejected_point / finished_story_pt) * 100).toFixed(1);
                 avg_velocity = finished_story_pt / iterations_num;
@@ -178,10 +182,10 @@ module.exports = function (config, dependencies, job_callback) {
                 avg_velocity = 0
             }
             if (stories_list.length > 0) {
-                stats = [{ "statsType" : "Accepted points", "value" : finished_story_pt.toString() },
-        { "statsType" : "Rejected points", "value" : rejected_point.toString() },
-        { "statsType" : "Rejected points ratio", "value" : rej_pt_ratio.toString().concat('%') }];
-                
+                stats = [{ "statsType" : "Point/Story Accepted", "value" : { "point": finished_story_pt.toString(), "story": finished_story_count.toString() } },
+        { "statsType" : "Point/Story Rejected", "value" : { "point": rejected_point.toString(), "story": rejected_story_count.toString() } },
+        { "statsType" : "Rejected Point/Story Ratio", "value" : { "point": rej_pt_ratio.toString().concat('%'), "story": rej_story_ratio.toString().concat('%') } }];
+            
                 callback(null, stats)
             }else {
                 stats = [];
@@ -196,5 +200,5 @@ module.exports = function (config, dependencies, job_callback) {
         }
 
 );
-    }, 10000);  
+    }, 35000);  
 };
