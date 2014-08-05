@@ -1,0 +1,37 @@
+{
+    "author":         "Atlassian",
+    "license":        "Apache License, Version 2.0",
+    "contributors":   [
+        {
+            "name": "William Archinal",
+            "email":"william.archinal@gmail.com"
+        },
+        {
+            "name": "Christoph Kiehl",
+            "email":"ckiehl@atlassian.com"
+        },
+        {
+            "name": "Alexander Dickson",
+            "email":"alex@alexanderdickson.com"
+        },
+        {
+            "name": "Ivan Loire",
+            "email":"iloire@atlassian.com"
+        }
+    ],
+    "name":           "testpackage",
+    "description":    "test package",
+    "version":        "0.5.2",
+    "homepage":       "http://test.bitbucket.org",
+    "repository":     {
+        "type":"git",
+        "url": ""
+    },
+    "engines":        {
+        "node":">=0.8"
+    },
+    "dependencies":   {
+        "underscore":           "1.4.2"
+    },
+    "keywords":       ["test"]
+}

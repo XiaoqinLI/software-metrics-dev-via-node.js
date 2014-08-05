@@ -1,0 +1,16 @@
+{
+  
+  "layout": {
+      "customJS" : ["jquery.peity.js"],
+      "title": false,
+      "widgets" : [
+          { "enabled" : true, "row" : 1, "col" : 1, "width" : 2, "height" : 2, "widget" : "blockers", "job" : "job1", "config": ""},
+          { "enabled" : true, "row" : 1, "col" : 3, "width" : 2, "height" : 4, "widget" : "blockers", "job" : "job1", "config": ""}
+      ]
+  },
+
+
+  "config": {
+
+  }
+}

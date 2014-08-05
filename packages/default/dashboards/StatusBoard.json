@@ -1,0 +1,86 @@
+{
+
+    "layout": {
+        "title": true,
+        "customJS" : ["jquery.peity.js", "Chart.js", "legend.js"],
+        "widgets": [
+            { "row": 1, "col": 1, "width": 2, "height": 1, "widget": "IterationBurndown", "job": "IterationBurndownJob", "config": "iteration-burndown" },
+            { "row": 2, "col": 1, "width": 2, "height": 1, "widget": "TotalBurndown", "job": "TotalBurndownJob", "config": "total-burndown" },
+            { "row": 1, "col": 3, "width": 2, "height": 1, "widget": "PivotalMilestones", "job": "PivotalMilestonesJob", "config": "pivotal-milestones" },
+            { "row": 1, "col": 6, "width": 1, "height": 1, "widget": "VelocityCurr", "job": "VelocityCurrJob", "config": "Velocity" },
+            { "row": 3, "col": 1, "width": 2, "height": 2, "widget": "IterationStatus", "job": "IterationStatusJob", "config": "iteration-status" },
+            { "row": 2, "col": 3, "width": 2, "height": 1, "widget": "PointStats", "job": "PointStatsJob", "config": "PointPre" },
+            { "row": 2, "col": 5, "width": 2, "height": 1, "widget": "PointCurrStats", "job": "PointCurrStatsJob", "config": "PointCurr" },
+            { "row": 5, "col": 1, "width": 2, "height": 1, "widget": "WeeklyCodeChurn",     "job": "WeeklyCodeChurnJob",     "config": "CodeChurn"},
+            { "row": 6, "col": 1, "width": 3, "height": 2, "widget": "allReleaseStatus", "job": "allReleaseStatusJob", "config": "release-status" }
+        ]
+    },
+    "config": {
+        "no-codecoverage": {
+            "interval": 600000,
+            "widgetTitle": "Unit Test Code Coverage"
+        },
+        "iteration-burndown" : {
+           "interval" : 1200000,
+           "pivotalTrackerServer" :  "https://www.pivotaltracker.com",
+           "projectId" : 1128896,
+           "widgetTitle" : "Iteration Burndown"
+         },
+        "total-burndown" : {
+           "interval" : 1200000,
+           "pivotalTrackerServer" :  "https://www.pivotaltracker.com",
+           "projectId" : 1128896,
+           "widgetTitle" : "Total Burndown"
+         },
+        "pivotal-milestones": {
+            "interval": 600000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 1128896,
+            "widgetTitle": "Upcoming PivotalTracker Milestones"
+        },
+        "release-status": {
+            "interval": 600000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 1128896,
+            "widgetTitle": "Release Status"
+        },
+        "iteration-status": {
+            "interval": 600000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 1128896,
+            "widgetTitle": "Current Snapshot"
+        },
+        "PointPre": {
+            "interval": 1200000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 1128896,
+            "widgetTitle": "Point stats in lastest 3 iterations"
+        },
+        "PointCurr": {
+            "interval": 1200000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 1128896,
+            "widgetTitle": "Point stats in current iteration"
+        },
+        "Velocity": {
+            "interval": 1200000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 1128896,
+            "widgetTitle": "Current Velocity"
+        },
+        "CodeLines": {
+			"interval": 6000000,
+            "gitHubServer": "https://api.github.com/repos",
+			"gitHubAccountId": "DoubleLinePartners",
+            "repoId": ["DevMetricDashboard"],
+            "widgetTitle": "Code Stats in all commits"
+	     },
+        "CodeChurn": {
+			"interval": 6000000,
+            "gitHubServer": "https://api.github.com/repos",
+			"gitHubAccountId": "DoubleLinePartners",
+            "repoId": ["DevMetricDashboard"],
+            "widgetTitle": "Current Code Churn"
+	 }
+    }
+}

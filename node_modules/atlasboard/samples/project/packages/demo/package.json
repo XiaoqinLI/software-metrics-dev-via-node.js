@@ -1,0 +1,21 @@
+{
+  "private":true,
+  "license":"Apache License, Version 2.0",
+  "author":"Atlassian",
+  "name":"atlasboard-demo-package",
+  "description":"A demo package for AtlasBoard",
+  "version":"0.0.1",
+  "homepage":"",
+  "repository":{
+    "type":"git",
+    "url":""
+  },
+  "engines":{
+    "node":">=0.8"
+  },
+  "dependencies":{
+    "underscore": "1.4.2",
+    "cheerio": "0.10.5",
+    "ical": "~0.0.3"
+  }
+}

@@ -1,11 +1,21 @@
-.item-container {
-    font-size: 40px;
+.content {
+    font-size: 26px;
+    height:180px;
+    overflow:auto;
+}
+
+tr {
+    border-bottom: 1px solid #000;
 }
 
 table {
-    font-size: 30px;
+    font-size: 26px;
 }
 
 tbody tr:nth-child(odd) {
-  background: #867970;
+  background: #dadada;
+}
+
+td:last-child {
+    text-align: center;
 }

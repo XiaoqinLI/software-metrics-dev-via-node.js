@@ -1,22 +1,49 @@
 #main-container #widgets-container h2{
 	font-size: 24px;
 }
-
+.content {
+    height:180px;
+    overflow: scroll;
+}
 .item-container-add {
     font-size: 28px;
     width: 50%;
     display: inline-block;
     float:left;
 }
-
+.repo {
+    font-size: 28px;
+    color: blue;
+    background: #d0d0d0;
+}
 .item-container-delete {
     font-size: 28px;
     width: 50%;
     display: inline-block;
     float:right;
 }
-
+.graph-add {
+    font-size: 28px;
+    width: 50%;
+    display: inline-block;
+    float:left;
+}
+.graph-del {
+    font-size: 28px;
+    width: 50%;
+    display: inline-block;
+    float:right;
+}
 .current{
 	font-size: 48px;
 	color: orange;
+}
+.text {
+    font-size: 26px;
+    color:grey;
+    padding-bottom:10px;
+    display: inline-block;
+}
+#selectorDiv {
+    font-size: 26px;
 }

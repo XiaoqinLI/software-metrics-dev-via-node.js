@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>StatusBoard</id>
+        <version>1.0.0</version>
+        <authors>casey.schmit</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>All that's needed for installing StatusBoard</description>
+    </metadata>
+    <files>
+        <file src="assets\**\*.*" target="assets" />
+        <file src="bin\nssm.exe" target="bin\nssm.exe" />
+        <file src="config\atlasboard.json" target="config\atlasboard.json" />
+        <file src="config\dashboard_common.json" target="config\dashboard_common.json" />
+        <file src="node_modules\**\*.*" target="node_modules" />
+        <file src="packages\**\*.*" target="packages" />
+        <file src="globalAuth.json" target="globalAuth.json" />
+        <file src="PreDeploy.ps1" target="PreDeploy.ps1" />
+        <file src="PostDeploy.ps1" target="PostDeploy.ps1" />
+        <file src="package.json" target="package.json" />
+    </files>
+</package>

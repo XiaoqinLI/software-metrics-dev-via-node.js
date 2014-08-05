@@ -1,0 +1,8 @@
+@keyframes standards {
+  0% { width: 1px; }
+  100% { width: 100px; }
+}
+@-webkit-keyframes vendor-prefix {
+  0% { width: 1px; }
+  100% { width: 100px; }
+}

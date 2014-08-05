@@ -1,0 +1,8 @@
+.before { display: none; }
+/* top-level comment */
+.after { display: block; }
+.contains {
+  padding-top: 1px;
+  /* comment inside a definition */
+  padding-bottom: 1px;
+}

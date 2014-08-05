@@ -20,7 +20,7 @@ widget = {
         }else {      
             $('.content', el).append(
                     "<div class='item-container'>" +
-                        "<div class='stat'>" + "No Data Available" +
+                        "<div class='no-data'>" + "No Data Available" +
                         "</div>"
 );
         }

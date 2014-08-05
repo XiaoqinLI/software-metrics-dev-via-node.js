@@ -1,0 +1,9 @@
+{
+    "google":{
+        "username":"atlasuser",
+        "password":"enigma"
+    }, "twitter":{
+        "username":"atlasboardpro",
+        "password":"turing"
+    }
+}

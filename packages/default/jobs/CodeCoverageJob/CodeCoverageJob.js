@@ -31,14 +31,65 @@ module.exports = function (config, dependencies, job_callback) {
 
     };
 
+    var cashedData;
+    var cashedFlag = false;
+    var dataSent = false;
+
     async.waterfall([
+
+        //load cached data from disk
+        //load cached data from disk
+        function LoadData(callback) {
+
+            storage.get('cachedResults', function (err, data) {
+
+                if (data == undefined) {
+                    //there is no historical data, go ahead and process normally
+                    callback();
+                }
+                else {
+
+                    //there is historical data present, return it to the UI
+                    job_callback(null, { title: config.widgetTitle, result: data.stats });
+                    dataSent = true;
+
+                    var currentTime = new Date();
+                    var lastResult = Date.parse(data.lastResultUpdate);
+                    var diff = currentTime - lastResult;;
+
+                    if (diff < config.interval) {
+                        callback("Skipping polling, using background data");
+                    }
+                    else {
+                        cashedData = data.stats;
+                        cashedFlag = true;
+                        //continue refreshing in the background                
+                        callback();
+                    }
+
+                }
+            });
+        },
+
+        //pause for a bit to spread out initial load
+        function PauseLoading(callback) {
+
+            //pause up to 15 seconds
+            var pauseTime = Math.floor(Math.random() * 15000);
+            setTimeout(callback, pauseTime);
+        },
+
         function GetLatestBuildId(callback) {
 
             dependencies.request(options, function (err, response, body) {
                 if (err || !response || response.statusCode != 200) {
                     var err_msg = err || "ERROR: Couldn't access the web page at " + options.url;
                     logger.error(err_msg);
-                    callback(err_msg);
+                    if (cashedFlag) {
+                        job_callback(null, { title: config.widgetTitle, stats: cashedData });
+                    } else {
+                        job_callback(err_msg);
+                    }
                 }
                 else {
                     var builds = JSON.parse(body);
@@ -56,7 +107,11 @@ module.exports = function (config, dependencies, job_callback) {
                 if (err || !response || response.statusCode != 200) {
                     var err_msg = err || "ERROR: Couldn't access the web page at " + options.url;
                     logger.error(err_msg);
-                    job_callback(err_msg);
+                    if (cashedFlag) {
+                        job_callback(null, { title: config.widgetTitle, stats: cashedData });
+                    } else {
+                        job_callback(err_msg);
+                    }
                 }
                 else {
                     var result = JSON.parse(body);
@@ -109,12 +164,23 @@ module.exports = function (config, dependencies, job_callback) {
                 callback(null, coverageStats);
 
             });
-        }
+        },
 
-    ],
+        //save the results to return more quickly next time around
+        function SaveData(stats, callback) {
 
-        function(err, status) {
-            job_callback(null, { title: config.widgetTitle, result: status });
+            var results = {};
+
+            results.stats = stats;
+            results.lastResultUpdate = new Date();
+
+            //store the results
+            storage.set('cachedResults', results, function (err, data) {
+
+                job_callback(null, { title: config.widgetTitle, result: results.stats });
+                callback();
+
+            });
         }
-    );
+    ]);
 };

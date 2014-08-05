@@ -1,0 +1,28 @@
+.content {
+    font-size: 26px;
+    overflow:auto;
+    height:400px;
+}
+
+.stat {
+    color: #3F80C2;
+    width: 60%;
+    display: inline-block;
+    float: left;
+    padding-bottom: 18px;
+}
+.counter {
+    font-weight: bold;
+    color: #3F80C2;
+    width: 30%;
+    float: right;
+    display: inline-block;
+}
+
+table {
+    font-size: 26px;
+}
+
+tbody tr:nth-child(even) {
+  background: #BDBDBD;
+}

@@ -1,0 +1,55 @@
+.content {
+    font-size: 26px;
+    height:180px;
+    overflow:auto;
+}
+
+.buildId {
+    font-size: 22px;
+    color: red;
+    width: 65%;  
+    float: left;
+    padding-bottom: 18px;
+    padding-left: 10px;
+}
+.buildLink {
+    font-size: 24px;
+    color:#3F80C2;
+    width: 10%;
+    float: right;
+    padding-left: 10px;    
+}
+.buildDate {
+    font-size: 24px;
+    color:#3F80C2;
+    width: 20%;
+    float: left;
+    padding-left: 10px; 
+}
+
+.None {
+    font-size: 26px;
+    color:green;
+    float: left;
+    display: inline-block;
+    padding-bottom: 18px;
+}
+
+a:link {
+    text-decoration: none;
+    color:#3F80C2;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+a:active {
+    text-decoration: underline;
+}

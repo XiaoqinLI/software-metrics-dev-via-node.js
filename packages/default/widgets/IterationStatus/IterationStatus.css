@@ -5,7 +5,14 @@
 table {
     font-size: 30px;
 }
+tr {
+    border-bottom: 1px solid #000;
+}
 
 tbody tr:nth-child(even) {
-  background: #867970;
+  background: #dadada;
+}
+
+tbody tr td:last-child {
+    text-align: center;
 }

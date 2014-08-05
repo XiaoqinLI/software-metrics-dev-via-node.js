@@ -3,7 +3,7 @@
 }
 
 .stat {
-    color: green;
+    color: #000;
     width: 60%;
     display: inline-block;
     float: left;
@@ -11,9 +11,12 @@
 }
 .counter {
     font-weight: bold;
-    color: #3F80C2;
+    color: #326793;
     width: 30%;
     float: right;
     display: inline-block;
+}
+.no-data {
+    color: #326793;
 }
 

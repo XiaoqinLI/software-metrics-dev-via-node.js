@@ -1,0 +1,6 @@
+#id { color: #000; }
+.class { color: #111; }
+tag { color: #222; }
+#multiple .things { color: #333; }
+
+.comma, .separated { color: #444; }

@@ -3,16 +3,16 @@
 }
 
 .stat {
-    color: yellow;
-    width: 75%;
+    color: #000;
+    width: 60%;
     display: inline-block;
     float: left;
     padding-bottom: 18px;
 }
 .counter {
     font-weight: bold;
-    color: #3F80C2;
-    width: 18%;
+    color: #326793;
+    width: 30%;
     float: right;
     display: inline-block;
 }

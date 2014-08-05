@@ -1,0 +1,8 @@
+.normal { width: 1px; }
+@media print {
+  .simple { width: 2px; }
+}
+
+@media (-webkit-max-device-pixel-ratio: 1.5), (max-device-pixel-ratio: 1.5) {
+  .complex { width: 3px; }
+}

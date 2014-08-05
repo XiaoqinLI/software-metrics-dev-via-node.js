@@ -1,0 +1,41 @@
+.quote {
+	font-size: 30px;
+	color: #CCC
+
+}
+
+.quote-customer {
+	margin-top: 5px;
+	font-size: 30px;
+	font-weight: bold;
+	color: #FFFFFF
+}
+
+blockquote {
+    font-size: 35px;
+    margin: 0.25em 0;
+    padding: 0.25em 40px;
+    line-height: 1.45;
+    position: relative;
+    color: #FFFFFF;
+}
+
+blockquote:before {
+    display: block;
+    content: "\201C";
+    font-size: 80px;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+blockquote cite {
+    color: #9A4473;
+    display: block;
+    margin-top: 5px;
+}
+
+blockquote cite:before {
+    content: "\2014 \2009";
+}

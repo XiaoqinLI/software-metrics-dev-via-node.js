@@ -8,6 +8,9 @@ widget = {
 		
 		var cur_vel = data.stats[0].value;
 		var pre_vel = data.stats[1].value;
+        if (pre_vel == 0){
+            pre_vel = cur_vel;
+            }
 		var diff = Math.abs(cur_vel-pre_vel);
 		var diffText = " compared to last iter";
 		$('.content', el).append(
@@ -17,9 +20,9 @@ widget = {
 		 );
 		
 		if (cur_vel >= pre_vel) {
-			$('.item-container', el).append("<div class='graph' style='color:green'>"+ diff.toString() + " " + "<img src='images/green-up.png'></div>");
+			$('.item-container', el).append("<div class='graph' style='color:#367229'>"+ diff.toString() + " " + "<img src='images/green-up.png'></div>");
 		} else {
-			$('.item-container', el).append("<div class='graph' style='color:red'>" + diff.toString() + " " + "<img src='images/red-down.png'></div>");
+			$('.item-container', el).append("<div class='graph' style='color:#893333'>" + diff.toString() + " " + "<img src='images/red-down.png'></div>");
 		}
 		$('.item-container', el).append("<div class='text'>" + diffText + "</div>");
 		 

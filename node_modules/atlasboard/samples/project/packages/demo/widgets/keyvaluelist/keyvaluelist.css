@@ -1,0 +1,19 @@
+.item-container {
+    font-size: 40px;
+}
+
+.issue {
+    color: #FFFFFF;
+    width: 75%;
+    display: inline-block;
+    float: left;
+    padding-bottom: 18px;
+}
+.count {
+    font-weight: bold;
+    color: #3F80C2;
+    width: 18%;
+    float: right;
+    display: inline-block;
+}
+

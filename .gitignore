@@ -6,3 +6,4 @@
 *.user
 *.sln.docstates
 
+obj/

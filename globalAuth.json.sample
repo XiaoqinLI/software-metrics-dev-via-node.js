@@ -1,8 +1,12 @@
 {
     "pivotalTracker":{
-        "apiToken":
+        "apiToken":"PivotalTracker API Key here"
     }, "teamcity":{
-        "username":
-        "password":
-    }
+        "username":"",
+        "password":""
+    }, "github":{		
+		"access_token": "",
+		"username": "",
+		"password": ""
+	}
 }
