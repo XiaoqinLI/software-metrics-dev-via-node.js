@@ -2,7 +2,7 @@ widget = {
     //runs when we receive data from the job
     onData: function(el, data) {
 
-        $('.content', el).empty();
+        //$('.content', el).empty();
         //The parameters our job passed through are in the data object
         //el is our widget element, so our actions should all be relative to that
         if (data.title) {
@@ -27,7 +27,9 @@ widget = {
             
             var dataRow = tableBody.insertRow(-1);
             dataRow.insertCell(-1).innerHTML = story.name;
-            dataRow.insertCell(-1).innerHTML = deadline.toLocaleDateString("en-US");
+            if (story.deadline) {
+                dataRow.insertCell(-1).innerHTML = deadline.toLocaleDateString("en-US");
+            } else { dataRow.insertCell(-1).innerHTML = "No Due Date"}
             if (story.current_state == "accepted" && currentDate < deadline) {
                 dataRow.cells[0].style.color = "#367229";
             }

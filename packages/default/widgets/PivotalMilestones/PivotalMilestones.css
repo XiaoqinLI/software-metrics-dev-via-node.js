@@ -19,3 +19,7 @@ tbody tr:nth-child(odd) {
 td:last-child {
     text-align: center;
 }
+
+table td:nth-child(1) {
+    width:70%;
+}

@@ -119,12 +119,19 @@ module.exports = function(config, dependencies, job_callback) {
          },
 
         function GetAllReleaseStats(allIters, callback) {
-             
+            var allData = {}
             var statusData = {};
-            
+            allData.totalRemaining = 0;
+
             allIters.forEach(function (iter) {
                 iter.stories.forEach(function (story) {
                     if (story.story_type == "feature") {
+                        if (story.current_state != "accepted") {
+                            if ("estimate" in story) {
+                                allData.totalRemaining += story.estimate;
+                            }
+                        }
+
                         if (story.labels.length != 0) {
                             story.labels.forEach(function (label) {
                                 if (label.name in statusData) {
@@ -203,11 +210,12 @@ module.exports = function(config, dependencies, job_callback) {
                 });// end of stories loop
 
             });// end of all iters loop
+            allData.statusData = statusData
             //job_callback(null, { title: config.widgetTitle, status: statusData });
-            callback(null, statusData)           
+            callback(null, allData)
         },
 
-         function GetAllReleaseStats(statusData, callback) {
+         function GetAllReleaseStats(allData, callback) {
              options.url = config.pivotalTrackerServer + "/services/v5/projects/" + config.projectId + "/?fields=current_velocity";
              dependencies.request(options, function (err, response, body) {
                  if (err || !response || response.statusCode != 200) {
@@ -222,7 +230,7 @@ module.exports = function(config, dependencies, job_callback) {
                      var result = JSON.parse(body);
                      var status = {}
                      status["currVelocity"] = result.current_velocity;
-                     status["statusData"] = statusData;
+                     status["statusData"] = allData;
                      callback(null, status)
                  }
              });

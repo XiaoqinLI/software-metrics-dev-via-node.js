@@ -23,15 +23,10 @@ function WorkdaysBetween(startDate, endDate) {
 
     var dayCount = 0;
 
-    while (internalStartDate < internalEndDate) {
-
-        if (internalStartDate.getUTCDay() % 6 != 0) {
-            dayCount++;
-        }
-
+    while (internalStartDate < internalEndDate) {        
+        dayCount++;
         internalStartDate = internalStartDate.addDays(1);
     }
-
     return dayCount;
 }
 
@@ -40,109 +35,98 @@ function BuildLabels(iterationData) {
 
     var startDate = new Date(iterationData.startDate);
     var endDate = new Date(iterationData.endDate);
-
-    //set the start params
-    labels.push((startDate.getMonth()+1) + '/' + startDate.getDate());
-
     var date = new Date(startDate);
-    date = date.addDays(1);
+
+    labels.push((date.getMonth() + 1) + '/' + date.getDate());
+
 
     var diff = WorkdaysBetween(startDate, endDate);
 
-    while (date < endDate) {
-
-        if (date.getDay() % 6 != 0) {
-            labels.push((date.getMonth()+1) + '/' + date.getDate());
-        }
-
+    for (var i = 1; i <= diff; i++) {
         date = date.addDays(1);
+        labels.push((date.getMonth() + 1) + '/' + date.getDate());
     }
 
     //add the last work day
-    labels.push((endDate.getMonth()+1) + '/' + endDate.getDate());
+    //labels.push((endDate.getMonth()+1) + '/' + endDate.getDate());
 
     return labels;
 }
 
-function BuildBaseline(iterationData) {
+function BuildBaseline(currentVelocity, totalRemainingPoint, startDate, endDate) {
 
     var baseline = [];
 
-    var startDate = new Date(iterationData.startDate);
-    var endDate = new Date(iterationData.endDate);
-
-    baseline.push(iterationData.totalPoints);
-
     var date = new Date(startDate);
-    date = date.addDays(1);
+    var targetburnDown = currentVelocity;
+    var currentleft = totalRemainingPoint
+
+    baseline.push(currentleft);
 
     var diff = WorkdaysBetween(startDate, endDate);
+    if (targetburnDown <= currentleft) {
+            var daily = targetburnDown / diff;
+    } else { var daily = currentleft / diff; }
 
-    var daily = iterationData.totalPoints / diff;
-
-    var runningTally = iterationData.totalPoints - daily;
-
-    while (date < endDate) {
-
-        if (date.getDay() % 6 != 0) {
-            baseline.push(Math.round(runningTally));
-            runningTally = runningTally - daily;
-        }
-
-        date = date.addDays(1);
+    var runningTally = currentleft;
+  //  var tempAccumulation = 0
+    for (var i = 1; i <= diff; i++) {
+        runningTally = runningTally - daily;
+        baseline.push(Math.round(runningTally));
     }
-
-    //add the last work day
-    baseline.push(0);
     
     return baseline;
 }
 
-function BuildBurndownLine(totalPoints, acceptedPoints, startDate, lastUpdate, burndownData) {
-
+function BuildBurndownLine(resultsData) {
+    
     var burndown = [];
     var currentTime = new Date();
-    var pointsLeft = totalPoints - acceptedPoints;
+    var pointsLeft = resultsData.totalRemainingPoint
+    burndown.push(pointsLeft);  
+    var diff = WorkdaysBetween(resultsData.startDate, resultsData.currentTime);
+    var startDate = new Date(resultsData.startDate);
+    var dateIndex = startDate.getDay();
+    var runningTally = pointsLeft;
 
-    //copy over the history 
-    if (burndownData) {
-        burndown = burndownData;
-    }
-    else {
-        //there's no data, pad how far we are into iteration
-        var diff = WorkdaysBetween(startDate, currentTime);
-
-        for (i = 0; i < diff; i++) {
-            burndown.push(pointsLeft);
+    resultsData.currentIterationData.stories.forEach(function (story) {
+        if (story.current_state == "accepted" && story.story_type == "feature") {
+            var storyAcceptedDate = new Date(story.accepted_at);
+            var gap = storyAcceptedDate.getDay() - dateIndex;
+            if (gap == 0) {               
+                runningTally -= story.estimate;              
+            } else {
+                if (gap == 1) {
+                    burndown.push(runningTally)
+                    runningTally -= story.estimate;
+                    dateIndex += gap;
+                }
+                else if (gap > 1) {                   
+                    for (var k = 0; k < gap; k++) {
+                        burndown.push(runningTally)
+                    }
+                    runningTally -= story.estimate;
+                    dateIndex += gap;
+                }
+            }
         }
 
-        //add an extra item to account for today
-        burndown.push(pointsLeft);
-    }
+    });
 
-    var date = {};
+    var diff = WorkdaysBetween(resultsData.startDate, currentTime)+1;
 
-    //if a lastUpdate time has been set, use it, otherwise, just use the current time
-    if (lastUpdate) {
-        date = new Date(lastUpdate);
-    }
-    else {
-        date = new Date();
-    }
+    var currentSize = burndown.length;
+    var lastPushed = burndown[currentSize - 1];
 
-    if (date.getDate() == currentTime.getDate()) {
-        //we've already updated today, so just replace the last value
-        burndown.pop();
-        burndown.push(pointsLeft);
+    for (i = currentSize; i < diff; i++) {
+        burndown.push(lastPushed);
     }
-    else {
-        //updating on a different day, add a new value
-        burndown.push(pointsLeft)
-    }
-
+    
+    //add an extra item to account for today
+    burndown.push(runningTally);
+ 
     return burndown;
 }
-
 
 module.exports = function(config, dependencies, job_callback) {
 
@@ -151,7 +135,8 @@ module.exports = function(config, dependencies, job_callback) {
     var async = require("async");
 
     //build the URL
-    var url = config.pivotalTrackerServer + "/services/v5/projects/" + config.projectId + "/iterations?scope=current";
+    var offset = 0
+    var url = config.pivotalTrackerServer + "/services/v5/projects/" + config.projectId + "/iterations?limit=50";
 
     var options = {
         url: url,
@@ -165,7 +150,7 @@ module.exports = function(config, dependencies, job_callback) {
     var cashedFlag = false;
 
     async.waterfall([
-
+        
         //load cached data from disk
         function LoadData(callback) {
 
@@ -176,9 +161,8 @@ module.exports = function(config, dependencies, job_callback) {
                     callback();
                 }
                 else {
-
                     //there is historical data present, return it to the UI
-                    job_callback(null, { title: config.widgetTitle, result: data.stats });
+                    job_callback(null, { title: config.widgetTitle, results: data.stats });
                     dataSent = true;
 
                     var currentTime = new Date();
@@ -194,27 +178,144 @@ module.exports = function(config, dependencies, job_callback) {
                         //continue refreshing in the background                
                         callback();
                     }
-
                 }
             });
         },
 
         //pause for a bit to spread out initial load
         function PauseLoading(callback) {
-
             //pause up to 15 seconds
             var pauseTime = Math.floor(Math.random() * 15000);
             setTimeout(callback, pauseTime);
         },
-
-        //get iteration stats from pivotal tracker
-        function GetIterationStatistics(callback) {
+        
+        function GetFirst50Iters(callback) {
             dependencies.request(options, function (err, response, body) {
                 if (err || !response || response.statusCode != 200) {
                     var err_msg = err || "ERROR: Couldn't access the web page at " + options.url;
                     logger.error(err_msg);
                     if (cashedFlag) {
-                        job_callback(null, { title: config.widgetTitle, result: cashedData });
+                        job_callback(null, { title: config.widgetTitle, results: cashedData });
+                    } else {
+                        job_callback(err_msg);
+                    }
+                }
+                else {
+                    var allIters = JSON.parse(body);
+                    callback(null, allIters);
+                }
+            });
+        },
+
+        function GetAllItersss(allIters, callback) {
+            var count = allIters.length
+            async.whilst(
+                function () { return count == 50; },
+                function (callback) {
+                    offset += 50;
+                    options.url = config.pivotalTrackerServer + "/services/v5/projects/" + config.projectId + "/iterations?limit=50&offset=" + offset.toString();
+                    dependencies.request(options, function (err, response, body) {
+                        if (err || !response || response.statusCode != 200) {
+                            var err_msg = err || "ERROR: Couldn't access the web page at " + options.url;
+                            logger.error(err_msg);
+                            if (cashedFlag) {
+                                job_callback(null, { title: config.widgetTitle, results: cashedData });
+                            } else {
+                                job_callback(err_msg);
+                            }
+                        }
+                        else {
+                            var temp = JSON.parse(body);
+                            allIters = allIters.concat(temp);
+                            count = temp.length;
+                            setTimeout(callback, 1000);
+                        }
+                    });
+                },
+                function (err) {
+                    callback(null, allIters);
+                }
+            );
+        },
+
+        function getRemainingPoint(alliters, callback) {
+
+            var resultMap = {};
+            var totalRemainingPoint = 0;
+            var currentTime = new Date();
+            var currentIterNum = 0
+            //get the current iteration
+            for (var i = 0; i < alliters.length; i += 1) {
+                var start = new Date(alliters[i].start);
+                var end = new Date(alliters[i].finish);
+                if (start <= currentTime && end > currentTime) {
+                    currentIterNum = i;
+                }
+            }
+
+            // get all reamining points for now
+            for (var i = 0; i < alliters.length; i += 1) {
+                for (var j = 0; j < alliters[i].stories.length; j += 1) {
+                    if (alliters[i].stories[j].estimate && alliters[i].stories[j].current_state != "accepted") 
+                    {
+                        totalRemainingPoint += alliters[i].stories[j].estimate;
+                    }
+                }
+            }
+
+            // also add points accepted in current iteration to total remaining points
+
+            for (var i = 0; i < alliters[currentIterNum].stories.length; i += 1) {
+                if (alliters[currentIterNum].stories[i].estimate && alliters[currentIterNum].stories[i].current_state == "accepted") {
+                    totalRemainingPoint += alliters[currentIterNum].stories[i].estimate;
+                }
+            }
+            resultMap.totalRemainingPoint = totalRemainingPoint;
+            resultMap.currentIterNum = currentIterNum
+            /*
+            var currentTime = new Date();
+            //get the current iteration
+            for (var i = 0; i < alliters.length; i += 1) {
+                start = new Date(alliters[i].start);
+                end = new Date(alliters[i].finish);
+                if (start <= currentTime && end > currentTime) {
+                    currentIter = i;
+                }
+            }
+            */            
+            callback(null, resultMap);
+        },
+
+        function GetCurrVelocity(resultMap, callback) {
+
+            options.url = config.pivotalTrackerServer + "/services/v5/projects/" + config.projectId + "/?fields=current_velocity";
+            dependencies.request(options, function (err, response, body) {
+                if (err || !response || response.statusCode != 200) {
+                    var err_msg = err || "ERROR: Couldn't access the web page at " + options.url;
+                    logger.error(err_msg);
+                    if (cashedFlag) {
+                        job_callback(null, { title: config.widgetTitle, results: cashedData });
+                    } else {
+                        job_callback(err_msg);
+                    }
+                }
+                else {
+                    var result = JSON.parse(body);
+                    resultMap.currentVelocity = result.current_velocity
+                    callback(null, resultMap);
+                }
+            });
+        },
+
+        //get iteration stats from pivotal tracker
+        function GetCurrentIteration(resultMap, callback) {
+            options.url = config.pivotalTrackerServer + "/services/v5/projects/" + config.projectId + "/iterations?scope=current";
+            dependencies.request(options, function (err, response, body) {
+                if (err || !response || response.statusCode != 200) {
+                    var err_msg = err || "ERROR: Couldn't access the web page at " + options.url;
+                    logger.error(err_msg);
+                    if (cashedFlag) {
+                        job_callback(null, { title: config.widgetTitle, results: cashedData });
                     } else {
                         job_callback(err_msg);
                     }
@@ -225,16 +326,12 @@ module.exports = function(config, dependencies, job_callback) {
                     var iterationData = {};
                     iterationData.startDate = result[0].start;
                     iterationData.endDate = result[0].finish;
-                    iterationData.totalPoints = 0;
+                    iterationData.totalPoints = 0; // total points in current iteration
+                    iterationData.pointsAccepted = 0; // accepted points in current iteration
+                    iterationData.stories = result[0].stories;
 
-                    var stories = result[0].stories;
-
-                    iterationData.pointsAccepted = 0;
-
-                    stories.forEach(function (story) {
-
+                    result[0].stories.forEach(function (story) {
                         if (story.estimate) {
-
                             iterationData.totalPoints += story.estimate;
 
                             if (story.current_state == "accepted") {
@@ -242,83 +339,26 @@ module.exports = function(config, dependencies, job_callback) {
                             }
                         }
                     });
-
-                    callback(null, iterationData);
+                    resultMap.currentIterationData = iterationData
+                    callback(null, resultMap);
                 }
             });
         },
-
-        //load the saved iteration stats from Disk
-        function LoadIterationBurndownStatistics(iterationData, callback) {
-
-            var burndownStats = {};
-
-            burndownStats.iterationData = iterationData;
-
-            //load burndown stats
-            storage.get('burndownData', function (err, data) {
-                if (data == undefined) {
-                    //no stored data exists
-                    burndownStats.savedData = null;
-                }
-                else {
-                    burndownStats.savedData = data;
-                }
-
-                callback(null, burndownStats);
-            });
-        },
-
+        //-----------------now I am here--------------------------------------
         //Process the stats
-        function ProcessBurndownStatistics(burndownStats, callback) {
-
-            var refreshData = false;
-
-            //if there is no saved data, start from scratch
-            if( burndownStats.savedData == null ){
-                refreshData = true;
-            }
-
-            if( refreshData == false )
-            {
-                //savedData isn't null(see above), so see if we're working on a new iteration
-                if(burndownStats.savedData.startDate != burndownStats.iterationData.startDate ) {
-                    //diferrent start dates, refresh the data
-                    refreshData = true;
-                }
-            }
-
-            //This is a new iteration, start from scratch
-            if( refreshData == true )
-            {
-                burndownStats.savedData = {};
-                burndownStats.savedData.labels = BuildLabels(burndownStats.iterationData);
-                burndownStats.savedData.baseline = BuildBaseline(burndownStats.iterationData);
-                burndownStats.savedData.startDate = burndownStats.iterationData.startDate;
-            }
-
-            //store the current point count
-            burndownStats.savedData.burndownData = BuildBurndownLine(burndownStats.iterationData.totalPoints,
-                                                            burndownStats.iterationData.pointsAccepted,
-                                                            burndownStats.iterationData.startDate,
-                                                            burndownStats.savedData.lastUpdate,
-                                                            burndownStats.savedData.burndownData);
-
-            //store the last update time
-            burndownStats.savedData.lastUpdate = Date.now();
-
-            callback(null, burndownStats.savedData);
-
-        },
-
-        //Save the stats to disk
-        function SaveIterationBurndownStatistics(burndownData, callback) {
-            //store the results
-            storage.set('burndownData', burndownData, function (err, data) {
+        function ProcessBurndownStatistics(resultMap, callback) {
+                
+            resultMap.savedData = {};
+            resultMap.startDate = resultMap.currentIterationData.startDate;
+            resultMap.endDate = resultMap.currentIterationData.endDate;
+            resultMap.savedData.labels = BuildLabels(resultMap.currentIterationData);
+            resultMap.savedData.baseline = BuildBaseline(resultMap.currentVelocity, resultMap.totalRemainingPoint, resultMap.startDate, resultMap.endDate);
             
-                callback(null, burndownData);
+            //store the current point count
+            resultMap.savedData.burndownData = BuildBurndownLine(resultMap);
 
-            });
+            callback(null, resultMap.savedData);
+
         },
 
         //save the results to return more quickly next time around
@@ -332,7 +372,7 @@ module.exports = function(config, dependencies, job_callback) {
             //store the results
             storage.set('cachedResults', results, function (err, data) {
 
-                job_callback(null, { title: config.widgetTitle, result: results.stats });
+                job_callback(null, { title: config.widgetTitle, results: results.stats });
                 callback();
 
             });

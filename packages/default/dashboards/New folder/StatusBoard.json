@@ -5,8 +5,15 @@
         "widgets": [
             { "row": 1, "col": 1, "width": 2, "height": 2, "widget": "IterationBurndown", "job": "IterationBurndownJob", "config": "iteration-burndown" },
             { "row": 3, "col": 1, "width": 2, "height": 2, "widget": "TotalBurndown", "job": "TotalBurndownJob", "config": "total-burndown" },
-            { "row": 4, "col": 6, "width": 1, "height": 1, "widget": "VelocityCurr", "job": "VelocityCurrJob", "config": "Velocity" }
+            { "row": 1, "col": 3, "width": 2, "height": 1, "widget": "PivotalMilestones", "job": "PivotalMilestonesJob", "config": "pivotal-milestones" },
 
+
+            { "row": 2, "col": 3, "width": 2, "height": 1, "widget": "PointStats", "job": "PointStatsJob", "config": "PointPre" },
+            { "row": 3, "col": 5, "width": 2, "height": 1, "widget": "WeeklyCodeChurn", "job": "WeeklyCodeChurnJob", "config": "CodeChurn" },
+            { "row": 3, "col": 3, "width": 2, "height": 1, "widget": "PointCurrStats", "job": "PointCurrStatsJob", "config": "PointCurr" },
+            { "row": 5, "col": 1, "width": 2, "height": 2, "widget": "IterationStatus", "job": "IterationStatusJob", "config": "iteration-status" },
+            { "row": 4, "col": 6, "width": 1, "height": 1, "widget": "VelocityCurr", "job": "VelocityCurrJob", "config": "Velocity" },
+            { "row": 4, "col": 2, "width": 3, "height": 2, "widget": "allReleaseStatus", "job": "allReleaseStatusJob", "config": "release-status" }
         ]
     },
     "config": {

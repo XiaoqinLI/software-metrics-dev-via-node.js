@@ -4,8 +4,16 @@
         "customJS": [ "jquery.peity.js", "Chart.js", "legend.js" ],
         "widgets": [
             { "row": 1, "col": 1, "width": 2, "height": 2, "widget": "IterationBurndown", "job": "IterationBurndownJob", "config": "iteration-burndown" },
-            { "row": 3, "col": 1, "width": 2, "height": 2, "widget": "TotalBurndown", "job": "TotalBurndownJob", "config": "total-burndown" },     
-            { "row": 4, "col": 6, "width": 1, "height": 1, "widget": "VelocityCurr", "job": "VelocityCurrJob", "config": "Velocity" }
+            { "row": 3, "col": 1, "width": 2, "height": 2, "widget": "TotalBurndown", "job": "TotalBurndownJob", "config": "total-burndown" },
+            { "row": 1, "col": 3, "width": 2, "height": 1, "widget": "PivotalMilestones", "job": "PivotalMilestonesJob", "config": "pivotal-milestones" },
+            { "row": 1, "col": 5, "width": 2, "height": 1, "widget": "CodeCoverage", "job": "CodeCoverageJob", "config": "teamcity-codecoverage" },
+            { "row": 2, "col": 5, "width": 2, "height": 1, "widget": "FailedBuilds", "job": "FailedBuildsJob", "config": "teamcity-failedbuilds" },
+            { "row": 2, "col": 3, "width": 2, "height": 1, "widget": "PointStats", "job": "PointStatsJob", "config": "PointPre" },
+            { "row": 3, "col": 5, "width": 2, "height": 1, "widget": "WeeklyCodeChurn", "job": "WeeklyCodeChurnJob", "config": "CodeChurn" },
+            { "row": 3, "col": 3, "width": 2, "height": 1, "widget": "PointCurrStats", "job": "PointCurrStatsJob", "config": "PointCurr" },
+            { "row": 5, "col": 1, "width": 2, "height": 2, "widget": "IterationStatus", "job": "IterationStatusJob", "config": "iteration-status" },
+            { "row": 4, "col": 6, "width": 1, "height": 1, "widget": "VelocityCurr", "job": "VelocityCurrJob", "config": "Velocity" },
+            { "row": 4, "col": 2, "width": 3, "height": 2, "widget": "allReleaseStatus", "job": "allReleaseStatusJob", "config": "release-status" }
         ]
     },
     "config": {
@@ -15,72 +23,72 @@
             "buildConfiguration": "",
             "widgetTitle": "Unit Test Code Coverage"
         },
-        "pivotal-milestones": {
-            "interval": 1200000,
-            "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
-            "widgetTitle": "PivotalTracker Milestones"
-        },
-        "teamcity-failedbuilds": {
-            "interval": 1200000,
-            "teamcityServer": "https://teamcity.dlpdemo.com/",
-            "projectID": "project28",
-            "buildConfiguration": [ "bt346", "bt347", "bt358" ],
-            "widgetTitle": "Latest failed builds Status"
-        },
-        "release-status": {
-            "interval": 600000,
-            "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
-            "widgetTitle": "Release Status"
-        },
         "iteration-burndown": {
             "interval": 1200000,
             "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
+            "projectId": 994684,
             "widgetTitle": "Current Iteration Burndown"
         },
         "total-burndown": {
             "interval": 1200000,
             "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
+            "projectId": 994684,
             "widgetTitle": "Total Burndown"
+        },
+        "teamcity-failedbuilds": {
+            "interval": 600000,
+            "teamcityServer": "https://teamcity.dlpdemo.com/",
+            "projectID": "project26",
+            "buildConfiguration": [ "bt312", "bt313" ],
+            "widgetTitle": "Latest failed builds Status"
+        },
+        "release-status": {
+            "interval": 600000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 994684,
+            "widgetTitle": "Release Status"
+        },
+        "pivotal-milestones": {
+            "interval": 1200000,
+            "pivotalTrackerServer": "https://www.pivotaltracker.com",
+            "projectId": 994684,
+            "widgetTitle": "Upcoming PivotalTracker Milestones"
         },
         "iteration-status": {
             "interval": 1200000,
             "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
+            "projectId": 994684,
             "widgetTitle": "Current Snapshot"
         },
         "PointPre": {
             "interval": 1200000,
             "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
+            "projectId": 994684,
             "widgetTitle": "Point stats in lastest 3 iterations"
         },
         "PointCurr": {
             "interval": 1200000,
             "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
+            "projectId": 994684,
             "widgetTitle": "Point stats in current iteration"
         },
         "Velocity": {
             "interval": 1200000,
             "pivotalTrackerServer": "https://www.pivotaltracker.com",
-            "projectId": 809091,
+            "projectId": 994684,
             "widgetTitle": "Current Velocity"
         },
         "CodeLines": {
             "interval": 6000000,
             "gitHubServer": "https://api.github.com/repos",
-            "gitHubAccountId": "ArkansasDOE",
+            "gitHubAccountId": "DelawareDOE",
             "repoId": ["Ed-Fi-Apps", "Ed-Fi-Core"],
             "widgetTitle": "Code Stats in all commits"
         },
         "CodeChurn": {
             "interval": 6000000,
             "gitHubServer": "https://api.github.com/repos",
-            "gitHubAccountId": "ArkansasDOE",
+            "gitHubAccountId": "DelawareDOE",
             "repoId": ["Ed-Fi-Apps", "Ed-Fi-Core"],
             "widgetTitle": "Current Code Churn"
         }

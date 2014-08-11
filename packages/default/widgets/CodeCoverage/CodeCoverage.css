@@ -1,4 +1,6 @@
-
+.content {
+	font-size: 28px;
+}
 .section {
 	display: table;
 	table-layout: fixed;
@@ -22,7 +24,7 @@
 }
 
 .coveragePercent {
-	font-size: 50px;
+	font-size: 28px;
 }
 
 .coverageHeader {
@@ -30,16 +32,16 @@
 }
 
 .coverageNeutral {
-	font-size: 50px;
+	font-size: 28px;
     color:#808080;
 }
 
 .coverageDown {
-	font-size: 50px;
+	font-size: 28px;
     color:#d94938;
 }
 
 .coverageUp {
-	font-size: 50px;
-    color:#20881b;
+	font-size: 28px;
+    color:#367229;
 }

@@ -122,7 +122,13 @@ module.exports = function (config, dependencies, job_callback) {
                     result.property.forEach(function (property) {
 
                         if (property.name == 'CodeCoverageS') {
-                            statementCoverage = property.value.substr(0, 5);
+                            statementCoverage.CodeCoverageS = property.value.substr(0, 5);
+                        }
+                        if (property.name == 'CodeCoverageM') {
+                            statementCoverage.CodeCoverageM = property.value.substr(0, 5);
+                        }
+                        if (property.name == 'CodeCoverageC') {
+                            statementCoverage.CodeCoverageC = property.value.substr(0, 5);
                         }
                     });
 
@@ -134,27 +140,42 @@ module.exports = function (config, dependencies, job_callback) {
         function GetSavedBuildStatistics(statementCoverage, callback) {
 
             var coverageStats = {};
-
-            //load coverage stats(last coverage, last change)
-            storage.get('coverageStats', function (err, data) {
-                if (data == undefined) {
-                    //no stored data exists
-                    coverageStats.coverage = statementCoverage;
-                    coverageStats.lastChange = 0;
-                }
-                else {
-                    coverageStats = data;
-
-                    //if coverage is different, calculate percent change
-                    if (coverageStats.coverage != statementCoverage) {
-                        coverageStats.lastChange = (statementCoverage - coverageStats.coverage) / (coverageStats.coverage) * 100;
-                        coverageStats.lastChange = Math.round(coverageStats.lastChange);
+            if (Object.keys(statementCoverage).length != 0) {
+                //load coverage stats(last coverage, last change)
+                storage.get('coverageStats', function (err, data) {
+                    if (data == undefined) {
+                        //no stored data exists
                         coverageStats.coverage = statementCoverage;
+                        coverageStats.lastChangeS = 0;
+                        coverageStats.lastChangeM = 0;
+                        coverageStats.lastChangeC = 0;
                     }
-                }
+                    else {
+                        coverageStats = data;
 
+                        //if coverage is different, calculate percent change
+                        if (coverageStats.coverage.CodeCoverageC != statementCoverage.CodeCoverageC) {
+                            coverageStats.lastChangeC = (statementCoverage.CodeCoverageC - coverageStats.coverage.CodeCoverageC) / (coverageStats.coverage.CodeCoverageC) * 100;
+                            coverageStats.lastChangeC = Math.round(coverageStats.lastChangeC);
+                            coverageStats.coverage.CodeCoverageC = statementCoverage.CodeCoverageC;
+                        }
+                        if (coverageStats.coverage.CodeCoverageM != statementCoverage.CodeCoverageM) {
+                            coverageStats.lastChangeM = (statementCoverage.CodeCoverageM - coverageStats.coverage.CodeCoverageM) / (coverageStats.coverage.CodeCoverageM) * 100;
+                            coverageStats.lastChangeM = Math.round(coverageStats.lastChangeM);
+                            coverageStats.coverage.CodeCoverageM = statementCoverage.CodeCoverageM;
+                        }
+                        if (coverageStats.coverage.CodeCoverageS != statementCoverage.CodeCoverageS) {
+                            coverageStats.lastChangeS = (statementCoverage.CodeCoverageS - coverageStats.coverage.CodeCoverageS) / (coverageStats.coverage.CodeCoverageS) * 100;
+                            coverageStats.lastChangeS = Math.round(coverageStats.lastChangeS);
+                            coverageStats.coverage.CodeCoverageS = statementCoverage.CodeCoverageS;
+                        }
+                    }
+
+                    callback(null, coverageStats);
+                });
+            } else {
                 callback(null, coverageStats);
-            });
+            }
         },
 
         function SaveBuildStatistics(coverageStats, callback) {

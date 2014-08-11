@@ -15,16 +15,16 @@ widget = {
 		var diffText = " compared to last iter";
 		$('.content', el).append(
 					"<div class='item-container'>" +
-						"<div class='currentVelocity'>" + cur_vel.toString() + "</div>" +
+						"<div class='current-velocity information'>" + cur_vel.toString() + "</div>" +
 					"</div>"
 		 );
 		
 		if (cur_vel >= pre_vel) {
-			$('.item-container', el).append("<div class='graph' style='color:#367229'>"+ diff.toString() + " " + "<img src='images/green-up.png'></div>");
+			$('.item-container', el).append("<div class='graph good-indicator current-velocity-diff'>"+ diff.toString() + " " + "<img src='images/green-up.png'></div>");
 		} else {
-			$('.item-container', el).append("<div class='graph' style='color:#893333'>" + diff.toString() + " " + "<img src='images/red-down.png'></div>");
+			$('.item-container', el).append("<div class='graph not-good-indicator'>" + diff.toString() + " " + "<img src='images/red-down.png'></div>");
 		}
-		$('.item-container', el).append("<div class='text'>" + diffText + "</div>");
+		$('.item-container', el).append("<div class='current-velocity-text'>" + diffText + "</div>");
 		 
     }
 

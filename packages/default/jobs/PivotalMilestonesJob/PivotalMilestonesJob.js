@@ -69,7 +69,7 @@ module.exports = function (config, dependencies, job_callback) {
                     var err_msg = err || "ERROR: Couldn't access the web page at " + options.url;
                     logger.error(err_msg);
                     if (cashedFlag) {
-                        job_callback(null, { title: config.widgetTitle, stats: cashedData });
+                        job_callback(null, { title: config.widgetTitle, stories: cashedData });
                     } else {
                         job_callback(err_msg);
                     }

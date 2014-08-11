@@ -1,17 +1,10 @@
-.content {
-    font-size: 35px;
-    color: #454545;
-    font-weight: bold;
-    text-align: center;
-}
-
-li {
-    display: inline;
+.content { 
+    overflow:scroll;
+    height:450px;
 }
 
 .legend{
-    width: 25em;
-    margin: 0.3em 0 0 0;
+    margin: 0 0 10px 0;
 }
 
 .legend .title {

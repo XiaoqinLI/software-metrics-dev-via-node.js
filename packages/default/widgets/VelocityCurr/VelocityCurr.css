@@ -6,7 +6,16 @@
     font-size: 28px;
 }
 
-.currentVelocity{
+.current-velocity{
 	font-size: 48px;
 	color: #326793;
+}
+.current-velocity-diff{
+	float: left;
+	width: 30%;
+}
+.current-velocity-text{
+	font-size: 20px;
+    float: left;
+    width: 80%;
 }

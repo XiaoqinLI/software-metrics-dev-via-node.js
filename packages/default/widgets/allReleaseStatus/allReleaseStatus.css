@@ -5,24 +5,27 @@
 }
 
 .stat {
-    color: #3F80C2;
-    width: 60%;
     display: inline-block;
-    float: left;
     padding-bottom: 18px;
+    font-style: italic;
 }
 .counter {
     font-weight: bold;
-    color: #3F80C2;
-    width: 30%;
-    float: right;
     display: inline-block;
+    padding-left: 10px;
 }
-
 table {
     font-size: 26px;
 }
-
+tr {
+    border-bottom: 1px solid #000;
+}
 tbody tr:nth-child(even) {
-  background: #BDBDBD;
+  background: #dadada;
+}
+tbody tr td:first-child, thead tr td:first-child {
+    text-align: left;
+}
+tbody tr td, thead tr td {
+    text-align: center;
 }

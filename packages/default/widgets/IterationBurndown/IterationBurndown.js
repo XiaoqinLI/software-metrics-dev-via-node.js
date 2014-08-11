@@ -11,7 +11,7 @@ widget = {
         var ctx = document.getElementById("iterationBurndownChart").getContext("2d");
 
         var data = {
-            labels: data.result.labels,
+            labels: data.results.labels,
             datasets: [
                 {
                     label: "Iteration Baseline",
@@ -21,8 +21,8 @@ widget = {
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: data.result.baseline,
-                    title: "Iteration Baseline"
+                    data: data.results.baseline,
+                    title: "Target "
                 },
                 {
                     label: "My Second dataset",
@@ -32,14 +32,22 @@ widget = {
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(151,187,205,1)",
-                    data: data.result.burndownData,
-                    title: "Current Progress"
+                    data: data.results.burndownData,
+                    title: "Actual Progress"
                 }
             ]
         };
 
         var myLineChart = new Chart(ctx).Line(data, {
-            bezierCurve: false
+            bezierCurve: false,
+            scaleOverride: false,
+            scaleSteps: null,        
+            scaleStepWidth: null,
+            scaleFontSize: 14,
+            pointDot: true,
+            pointDotRadius: 2,
+            pointDotStrokeWidth: 1,
+            showTooltips: false
         });
 
         legend(document.getElementById("iterationBurndownLegend"), data);

@@ -10,27 +10,22 @@ widget = {
         }
         
         var remainingPoint = 0;
-        var dataset = data.stats.statusData;
-        
-        for(var label in dataset){
-            remainingPoint += dataset[label][2];
-        }
-        
+        var dataset = data.stats.statusData.statusData;               
+        remainingPoint += data.stats.statusData.totalRemaining;              
         
         var currDate = new Date();
         var daysNeeded = Math.ceil(remainingPoint / data.stats.currVelocity) * 7;
         currDate.setDate(currDate.getDate() + daysNeeded);
         $('.content', el).append(
                     "<div class='item-container'>" +
-                        "<div class='stat'>" + "Remaining Points(some were multi labeled)" + "</div>" +
-                        "<div class='counter'>" + remainingPoint + "</div>" +
+                        "<div class='stat'>" + "Remaining Points: " + "</div>" +
+                        "<div class='counter information'>" + remainingPoint + "</div>" +
                     "</div>" + 
                      "<div class='item-container'>" +
-                        "<div class='stat'>" + "Estimated Completion Date" + "</div>" +
-                        "<div class='counter'>" + currDate.toLocaleDateString() + "</div>" +
+                        "<div class='stat'>" + "Estimated Completion Date: " + "</div>" +
+                        "<div class='counter information'>" + currDate.toLocaleDateString() + "</div>" +
                      "</div>"
-);/*
-        */
+);       
         
         var table = document.createElement('TABLE');
         table.width = "100%";
@@ -41,26 +36,23 @@ widget = {
         tableHeadRow.insertCell(-1).innerHTML = "Total Points";
         tableHeadRow.insertCell(-1).innerHTML = "Completed Points";
         tableHeadRow.insertCell(-1).innerHTML = "Remaining Points";
-       // data.status.forEach(function(entry){
-      //      tableHeadRow.insertCell(-1).innerHTML = entry;
-      //  });
-        
-
+      
         var tableBody = table.createTBody();
         
-        
-       //data.status.forEach(function (entry) {
         for(var label in dataset){
 
             var dataRow = tableBody.insertRow(-1);
             dataRow.insertCell(-1).innerHTML = label;
             dataRow.insertCell(-1).innerHTML = dataset[label][0];
-            dataRow.cells[1].style.color = "#3F80C2";
+            dataRow.cells[1].className += "information";
             dataRow.insertCell(-1).innerHTML = dataset[label][1];
-            dataRow.cells[2].style.color = "#009900";
+            dataRow.cells[2].className += "good-indicator";
             dataRow.insertCell(-1).innerHTML = dataset[label][2];
-            dataRow.cells[3].style.color = "red";
+            dataRow.cells[3].className += "not-good-indicator";
         }
         $('.content', el).append(table);
+        $('.content', el).append(
+            "<div> Note: some stories were multi labeled</div>"
+            );
     }
 };
